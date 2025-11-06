@@ -33,13 +33,13 @@ jobs:
       # Instala dependências do package.json (crucial para projetos TS)
       run: npm ci
 
-    # 🌟 CORREÇÃO DE ESTABILIDADE: Adicionado um passo para aumentar a Shared Memory 🌟
-    # Isso resolve o erro "Target page has been closed" no Chromium devido a falta de recurso.
+    # 🌟 CORREÇÃO DE ESTABILIDADE: Aumenta a memória compartilhada para o navegador 🌟
     - name: 4. Corrigir Shared Memory para Playwright
+      # Aumenta o shm-size, resolvendo o erro 'browser has been closed'
       run: sudo mount -o remount,size=2G /dev/shm
       
     - name: 5. Instalar Navegadores do Playwright
-      # Mantido o passo original de instalação de navegadores.
+      # Instala Chromium, Firefox e WebKit, e suas dependências de sistema
       run: npx playwright install --with-deps
 
     - name: 6. Rodar Testes do Playwright
