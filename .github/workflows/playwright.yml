@@ -40,8 +40,9 @@ jobs:
       - name: 6. Instalar Navegadores do Playwright
         run: npx playwright install --with-deps
 
-      - name: 7. Executar Testes do Playwright (modo headless)
-        run: npx playwright test --headed=false
+      - name: 7. Executar Testes do Playwright (com X virtual)
+        run: xvfb-run --auto-servernum --server-args='-screen 0 1280x720x24' npx playwright test
+
 
       - name: 8. Upload do Relatório de Testes
         uses: actions/upload-artifact@v4
