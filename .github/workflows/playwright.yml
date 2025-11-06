@@ -60,11 +60,3 @@ jobs:
           publish_dir: playwright-report
           destination_dir: playwright-report
           commit_message: "📄 Atualizando relatório Playwright [skip ci]"
-          
-      - name: 8. Upload do Relatório
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-            name: playwright-report
-            path: playwright-report/
-            retention-days: 30     
