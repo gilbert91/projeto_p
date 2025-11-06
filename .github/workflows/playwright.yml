@@ -49,11 +49,3 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
-
-    - name: 9. Publicar Relatório no GitHub Pages
-      if: always() # publica mesmo se houver falha nos testes
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: playwright-report
-        destination_dir: playwright-report
