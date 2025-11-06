@@ -6,13 +6,13 @@ on:
   pull_request:
     branches: [ main, master ]
 
-# ✅ Permite que o GitHub Actions tenha permissão para publicar no gh-pages
+# ✅ Permite push para o GitHub Pages
 permissions:
   contents: write
 
 jobs:
   test:
-    runs-on: ubuntu-22.04   # ✅ Usa versão estável que evita erro do libasound2
+    runs-on: ubuntu-22.04   # ✅ Estável e compatível com libasound2
     timeout-minutes: 20
 
     steps:
@@ -30,11 +30,11 @@ jobs:
       - name: 4. Corrigir Shared Memory (evita erro "browser has been closed")
         run: sudo mount -o remount,size=2G /dev/shm
 
-      - name: 5. Instalar Dependências do Sistema (corrige erro do libasound2)
+      - name: 5. Instalar Dependências do Sistema (corrige erros do Playwright)
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            libasound2t64 libnss3 libatk1.0-0 libcups2 libdrm2 \
+            libasound2 libnss3 libatk1.0-0 libcups2 libdrm2 \
             libxkbcommon0 libatspi2.0-0 libxdamage1 libxfixes3 libxrandr2 \
             libgbm1 libpango-1.0-0 libcairo2 libasound2-data fonts-liberation libu2f-udev
 
