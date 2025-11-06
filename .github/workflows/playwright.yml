@@ -1,0 +1,51 @@
+# Nome que aparecerá no GitHub Actions
+name: Playwright E2E Tests
+
+# Eventos que disparam a pipeline
+on:
+  push:
+    branches: [ main, master ] # Dispara em pushes para main ou master
+  pull_request:
+    branches: [ main, master ] # Dispara em pull requests
+
+# Definição dos Jobs
+jobs:
+  test:
+    # A máquina virtual onde os testes serão executados
+    runs-on: ubuntu-latest
+    
+    # Define um timeout para o job, evitando que ele rode indefinidamente
+    timeout-minutes: 15
+
+    steps:
+    - name: 1. Checkout do Código
+      # Pega o código do seu repositório
+      uses: actions/checkout@v4
+
+    - name: 2. Configurar Node.js
+      # Instala o Node.js
+      uses: actions/setup-node@v4
+      with:
+        # Usa a versão LTS (Long-Term Support)
+        node-version: lts/* - name: 3. Instalar Dependências
+      # Instala as dependências do package.json (incluindo o Playwright)
+      run: npm ci
+
+    - name: 4. Instalar Navegadores do Playwright
+      # Este passo é crucial! O Playwright precisa instalar o Chromium, Firefox e WebKit.
+      run: npx playwright install --with-deps
+
+    - name: 5. Rodar Testes do Playwright
+      # Executa o comando padrão de testes.
+      # Se você tiver um script diferente no package.json (ex: 'npm run test:ci'), use-o aqui.
+      run: npx playwright test
+
+    - name: 6. Upload do Relatório de Testes (Artifact)
+      # Este passo salva o relatório HTML (playwright-report) do CI.
+      # Se o teste falhar, você pode baixar o arquivo e visualizar o relatório completo.
+      uses: actions/upload-artifact@v4
+      if: always() # Garante que o upload ocorra mesmo se os testes falharem ou forem cancelados
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30 # O relatório ficará disponível por 30 dias
