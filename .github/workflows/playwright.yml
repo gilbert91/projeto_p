@@ -33,15 +33,20 @@ jobs:
       # Instala dependências do package.json (crucial para projetos TS)
       run: npm ci
 
-    - name: 4. Instalar Navegadores do Playwright
-      # Instala Chromium, Firefox e WebKit, e suas dependências de sistema
+    # 🌟 CORREÇÃO DE ESTABILIDADE: Adicionado um passo para aumentar a Shared Memory 🌟
+    # Isso resolve o erro "Target page has been closed" no Chromium devido a falta de recurso.
+    - name: 4. Corrigir Shared Memory para Playwright
+      run: sudo mount -o remount,size=2G /dev/shm
+      
+    - name: 5. Instalar Navegadores do Playwright
+      # Mantido o passo original de instalação de navegadores.
       run: npx playwright install --with-deps
 
-    - name: 5. Rodar Testes do Playwright
+    - name: 6. Rodar Testes do Playwright
       # Executa os testes.
       run: npx playwright test
 
-    - name: 6. Upload do Relatório de Testes (Artifact)
+    - name: 7. Upload do Relatório de Testes (Artifact)
       # Salva o relatório HTML para que você possa inspecionar falhas.
       uses: actions/upload-artifact@v4
       if: always() # Garante que o upload ocorra mesmo se os testes falharem
