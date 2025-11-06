@@ -6,13 +6,12 @@ on:
   pull_request:
     branches: [ main, master ]
 
-# ✅ Permite push para o GitHub Pages
 permissions:
   contents: write
 
 jobs:
   test:
-    runs-on: ubuntu-22.04   # ✅ Estável e compatível com libasound2
+    runs-on: ubuntu-22.04
     timeout-minutes: 20
 
     steps:
@@ -30,7 +29,7 @@ jobs:
       - name: 4. Corrigir Shared Memory (evita erro "browser has been closed")
         run: sudo mount -o remount,size=2G /dev/shm
 
-      - name: 5. Instalar Dependências do Sistema (corrige erros do Playwright)
+      - name: 5. Instalar Dependências do Sistema
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -41,8 +40,8 @@ jobs:
       - name: 6. Instalar Navegadores do Playwright
         run: npx playwright install --with-deps
 
-      - name: 7. Executar Testes do Playwright
-        run: npx playwright test
+      - name: 7. Executar Testes do Playwright (modo headless)
+        run: npx playwright test --headed=false
 
       - name: 8. Upload do Relatório de Testes
         uses: actions/upload-artifact@v4
