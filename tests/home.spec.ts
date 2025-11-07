@@ -19,8 +19,8 @@ test('acessando e preechendo form testautomationpractice blogspot', async ({ pag
 
   // Mantidos os demais campos estáticos (conforme solicitado)
   await page.fill('#email', 'email Completo');
-  await page.fill('#phone', 'Phone Completo');
-  await page.fill('#textarea', 'Endereço Completo');
+  await page.fill('#phone', faker.internet.email());
+  await page.fill('#textarea', faker.location.secondaryAddress());
   await page.check('#male');
   await page.check('#saturday');
   await page.selectOption('#country', 'brazil');
@@ -28,8 +28,6 @@ test('acessando e preechendo form testautomationpractice blogspot', async ({ pag
   await page.click('option[value="dog"]');
   await page.click('#datepicker');
   await page.click('a[data-date="22"]');
-
-  // Removidas as linhas repetidas de datepicker para limpeza.
 
   console.log(`Teste executado com Nome Aleatório: ${nomeAleatorio}`);
 });
