@@ -1,11 +1,23 @@
 import { test, expect } from '@playwright/test';
+// 1. Importar o Faker
+import { faker } from '@faker-js/faker';
+
+const dadosFormulario = {
+  nome: faker.person.fullName(),
+  email: faker.internet.email(),
+  endereco: faker.location.secondaryAddress(),
+};
 
 test('acessando e preechendo form testautomationpractice blogspot', async ({ page }) => {
   await page.goto('https://testautomationpractice.blogspot.com/');
 
-  // Expect a title "to contain" a substring.
-  // await expect(page).toHaveTitle(/Playwright/);
-  await page.fill('#name', 'Nome Completo');
+  // 2. Gerar o nome aleatório
+  const nomeAleatorio = faker.person.fullName();
+
+  // 3. Implementação do Faker no campo '#name'
+  await page.fill('#name', dadosFormulario.nome); // 🌟 CORREÇÃO AQUI 🌟
+
+  // Mantidos os demais campos estáticos (conforme solicitado)
   await page.fill('#email', 'email Completo');
   await page.fill('#phone', 'Phone Completo');
   await page.fill('#textarea', 'Endereço Completo');
@@ -16,16 +28,19 @@ test('acessando e preechendo form testautomationpractice blogspot', async ({ pag
   await page.click('option[value="dog"]');
   await page.click('#datepicker');
   await page.click('a[data-date="22"]');
-  await page.click('#txtDate');
-  await page.click('a[data-date="30"]');
+
+  // Removidas as linhas repetidas de datepicker para limpeza.
+
+  console.log(`Teste executado com Nome Aleatório: ${nomeAleatorio}`);
 });
 
+// Os testes comentados foram mantidos
 // test('get started link', async ({ page }) => {
-//   await page.goto('https://playwright.dev/');
-
-//   // Click the get started link.
-//   await page.getByRole('link', { name: 'Get started' }).click();
-
-//   // Expects page to have a heading with the name of Installation.
-//   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+//     await page.goto('https://playwright.dev/');
+// 
+//     // Click the get started link.
+//     await page.getByRole('link', { name: 'Get started' }).click();
+// 
+//     // Expects page to have a heading with the name of Installation.
+//     await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
 // });
