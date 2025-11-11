@@ -1,0 +1,48 @@
+# 🎭 Projeto de Automação com Playwright
+
+Testes automatizados usando Playwright e TypeScript.
+
+##  Pré-requisitos
+
+- **Node.js** 16+ ([Download aqui](https://nodejs.org/))
+- **npm** ou **yarn**
+
+## 🚀 Instalação
+
+### 1. Clone o repositório
+```bash
+git clone <url-do-repositorio>
+cd projeto_p
+```
+
+### 2. Instale as dependências
+```bash
+npm install
+```
+
+### 3. Instale os navegadores do Playwright
+```bash
+npx playwright install
+```
+
+##  Executando os Testes
+
+### Rodar todos os testes
+```bash
+npx playwright test
+```
+
+### Rodar com interface visual
+```bash
+npx playwright test --ui
+```
+
+### Rodar e ver o navegador
+```bash
+npx playwright test --headed
+```
+
+### Ver relatório dos testes
+```bash
+npx playwright show-report
+```
