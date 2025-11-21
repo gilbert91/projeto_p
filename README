@@ -1,4 +1,4 @@
-# 🎭 Projeto de Automação com Playwright
+# Projeto de Automação com Playwright
 
 Testes automatizados usando Playwright e TypeScript.
 
@@ -7,7 +7,7 @@ Testes automatizados usando Playwright e TypeScript.
 - **Node.js** 16+ ([Download aqui](https://nodejs.org/))
 - **npm** ou **yarn**
 
-## 🚀 Instalação
+## Instalação
 
 ### 1. Clone o repositório
 ```bash
